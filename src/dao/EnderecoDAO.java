@@ -7,6 +7,7 @@ import java.sql.*;
 
 public class EnderecoDAO {
     public void inserir(Endereco endereco) throws SQLException {
+        // Insere um novo endereço no banco de dados
         String sql = "INSERT INTO endereco (rua, bairro, cidade, cep) VALUES (?, ?, ?, ?)";
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -20,10 +21,13 @@ public class EnderecoDAO {
                     endereco.setId(rs.getInt(1));
                 }
             }
+        } catch (SQLIntegrityConstraintViolationException e) {
+            throw new SQLException("Erro: CEP já cadastrado.", e);
         }
     }
 
     public void atualizar(Endereco endereco) throws SQLException {
+        // Atualiza os dados de um endereço existente
         String sql = "UPDATE endereco SET rua = ?, bairro = ?, cidade = ?, cep = ? WHERE id = ?";
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -33,10 +37,13 @@ public class EnderecoDAO {
             stmt.setString(4, endereco.getCep());
             stmt.setInt(5, endereco.getId());
             stmt.executeUpdate();
+        } catch (SQLIntegrityConstraintViolationException e) {
+            throw new SQLException("Erro: CEP já cadastrado.", e);
         }
     }
 
     public void deletar(int id) throws SQLException {
+        // Remove um endereço pelo id
         String sql = "DELETE FROM endereco WHERE id = ?";
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -46,6 +53,7 @@ public class EnderecoDAO {
     }
 
     public Endereco buscarPorId(int id) throws SQLException {
+        // Busca um endereço pelo id
         String sql = "SELECT * FROM endereco WHERE id = ?";
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -66,6 +74,7 @@ public class EnderecoDAO {
     }
 
     public java.util.List<Endereco> buscarTodos() throws SQLException {
+        // Busca todos os endereços
         String sql = "SELECT * FROM endereco";
         java.util.List<Endereco> lista = new java.util.ArrayList<>();
         try (Connection conn = ConnectionFactory.getConnection();

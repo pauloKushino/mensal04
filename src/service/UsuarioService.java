@@ -12,6 +12,10 @@ public class UsuarioService {
         return usuarioDAO.autenticar(nome, senha);
     }
 
+    public Usuario validarLogin(String nome, String senha) throws SQLException {
+        return autenticar(nome, senha);
+    }
+
     public void cadastrarUsuario(Usuario usuario) throws SQLException {
         usuarioDAO.inserir(usuario);
     }

@@ -2,7 +2,6 @@ package dao;
 
 import util.ConnectionFactory;
 import model.Aluno;
-import model.Endereco;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,6 +10,7 @@ import java.util.List;
 public class AlunoDAO {
 
     public void inserir(Aluno aluno) throws SQLException {
+        // Insere um novo aluno no banco de dados
         String sql = "INSERT INTO aluno (nome, cpf, rg, endereco_id) VALUES (?, ?, ?, ?)";
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -19,10 +19,13 @@ public class AlunoDAO {
             stmt.setString(3, aluno.getRg());
             stmt.setInt(4, aluno.getEndereco().getId());
             stmt.executeUpdate();
+        } catch (SQLIntegrityConstraintViolationException e) {
+            throw new SQLException("Erro: CPF ou RG já cadastrado.", e);
         }
     }
 
     public void atualizar(Aluno aluno) throws SQLException {
+        // Atualiza os dados de um aluno existente
         String sql = "UPDATE aluno SET nome = ?, cpf = ?, rg = ?, endereco_id = ? WHERE id = ?";
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -32,10 +35,13 @@ public class AlunoDAO {
             stmt.setInt(4, aluno.getEndereco().getId());
             stmt.setInt(5, aluno.getId());
             stmt.executeUpdate();
+        } catch (SQLIntegrityConstraintViolationException e) {
+            throw new SQLException("Erro: CPF ou RG já cadastrado.", e);
         }
     }
 
     public void deletar(int id) throws SQLException {
+        // Remove um aluno pelo id
         String sql = "DELETE FROM aluno WHERE id = ?";
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -45,6 +51,7 @@ public class AlunoDAO {
     }
 
     public Aluno buscarPorId(int id) throws SQLException {
+        // Busca um aluno pelo id, retornando o endereço completo
         String sql = "SELECT * FROM aluno WHERE id = ?";
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -56,8 +63,9 @@ public class AlunoDAO {
                 aluno.setNome(rs.getString("nome"));
                 aluno.setCpf(rs.getString("cpf"));
                 aluno.setRg(rs.getString("rg"));
-                Endereco endereco = new Endereco();
-                endereco.setId(rs.getInt("endereco_id"));
+                int enderecoId = rs.getInt("endereco_id");
+                dao.EnderecoDAO enderecoDAO = new dao.EnderecoDAO();
+                model.Endereco endereco = enderecoDAO.buscarPorId(enderecoId);
                 aluno.setEndereco(endereco);
                 return aluno;
             }
@@ -66,8 +74,10 @@ public class AlunoDAO {
     }
 
     public List<Aluno> buscarTodos() throws SQLException {
+        // Busca todos os alunos, retornando o endereço completo de cada um
         String sql = "SELECT * FROM aluno";
         List<Aluno> alunos = new ArrayList<>();
+        dao.EnderecoDAO enderecoDAO = new dao.EnderecoDAO();
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
@@ -77,8 +87,8 @@ public class AlunoDAO {
                 aluno.setNome(rs.getString("nome"));
                 aluno.setCpf(rs.getString("cpf"));
                 aluno.setRg(rs.getString("rg"));
-                Endereco endereco = new Endereco();
-                endereco.setId(rs.getInt("endereco_id"));
+                int enderecoId = rs.getInt("endereco_id");
+                model.Endereco endereco = enderecoDAO.buscarPorId(enderecoId);
                 aluno.setEndereco(endereco);
                 alunos.add(aluno);
             }

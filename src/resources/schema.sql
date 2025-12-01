@@ -1,0 +1,23 @@
+CREATE TABLE endereco (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    rua VARCHAR(100) NOT NULL,
+    bairro VARCHAR(100) NOT NULL,
+    cidade VARCHAR(100) NOT NULL,
+    cep VARCHAR(10) NOT NULL
+);
+
+CREATE TABLE aluno (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    cpf VARCHAR(14) NOT NULL,
+    rg VARCHAR(20) NOT NULL,
+    endereco_id INT,
+    FOREIGN KEY (endereco_id) REFERENCES endereco(id)
+);
+
+CREATE TABLE usuario (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    senha VARCHAR(255) NOT NULL,
+    status VARCHAR(20) NOT NULL
+);
