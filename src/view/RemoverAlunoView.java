@@ -94,20 +94,6 @@ public class RemoverAlunoView extends JFrame {
         buttonPanel.add(btnVoltar);
         add(buttonPanel, BorderLayout.SOUTH);
 
-        btnBuscar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Controller busca aluno pelo ID
-            }
-        });
-
-        btnRemover.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Controller valida dependências e remove
-            }
-        });
-
         btnVoltar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

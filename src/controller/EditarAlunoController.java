@@ -133,12 +133,25 @@ public class EditarAlunoController {
     }
 
     private String extrairCampo(String json, String campo) {
-        String busca = "\"" + campo + "\":\"";
+        String busca = "\"" + campo + "\"";
         int ini = json.indexOf(busca);
         if (ini < 0) return "";
-        ini += busca.length();
-        int fim = json.indexOf("\"", ini);
-        if (fim < 0) return "";
-        return json.substring(ini, fim);
+        
+        ini = json.indexOf(":", ini);
+        if (ini < 0) return "";
+        ini++;
+        
+        while (ini < json.length() && (json.charAt(ini) == ' ' || json.charAt(ini) == '\n' || json.charAt(ini) == '\r' || json.charAt(ini) == '\t')) {
+            ini++;
+        }
+        
+        if (ini < json.length() && json.charAt(ini) == '"') {
+            ini++;
+            int fim = json.indexOf("\"", ini);
+            if (fim < 0) return "";
+            return json.substring(ini, fim);
+        }
+        
+        return "";
     }
 }

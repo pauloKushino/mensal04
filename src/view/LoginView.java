@@ -65,16 +65,7 @@ public class LoginView extends JFrame {
         panel.add(btnEntrar, gbc);
 
         add(panel, BorderLayout.CENTER);
-
-        btnEntrar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Validação através de Service + DAO
-                // Exemplo: LoginController.validarLogin(getUsuario(), getSenha())
-                JOptionPane.showMessageDialog(null, "Implemente a validação no Controller");
-            }
-        });
-    }
+    };
 
     public String getUsuario() {
         return txtUsuario.getText();

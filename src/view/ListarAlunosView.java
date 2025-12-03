@@ -31,7 +31,6 @@ public class ListarAlunosView extends JFrame {
         topPanel.add(lblTitulo);
         add(topPanel, BorderLayout.NORTH);
 
-        // Criar tabela com colunas
         String[] colunas = {"ID", "Nome", "CPF", "RG", "CEP"};
         model = new DefaultTableModel(colunas, 0) {
             @Override
@@ -54,7 +53,7 @@ public class ListarAlunosView extends JFrame {
         UITheme.styleButton(btnAtualizar);
         btnEditar = new JButton("Editar Selecionado");
         UITheme.styleButton(btnEditar);
-        btnRemover = new JButton("Remover Selecionado");
+        btnRemover = new JButton("Remover");
         UITheme.styleButton(btnRemover);
         btnVoltar = new JButton("Voltar");
         UITheme.styleButton(btnVoltar);
@@ -64,37 +63,6 @@ public class ListarAlunosView extends JFrame {
         buttonPanel.add(btnRemover);
         buttonPanel.add(btnVoltar);
         add(buttonPanel, BorderLayout.SOUTH);
-
-        btnAtualizar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Controller carrega lista de alunos
-            }
-        });
-
-        btnEditar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int row = table.getSelectedRow();
-                if (row >= 0) {
-                    // Controller abre tela de edição com dados do aluno selecionado
-                } else {
-                    JOptionPane.showMessageDialog(null, "Selecione um aluno para editar");
-                }
-            }
-        });
-
-        btnRemover.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int row = table.getSelectedRow();
-                if (row >= 0) {
-                    // Controller abre tela de remoção
-                } else {
-                    JOptionPane.showMessageDialog(null, "Selecione um aluno para remover");
-                }
-            }
-        });
 
         btnVoltar.addActionListener(new ActionListener() {
             @Override

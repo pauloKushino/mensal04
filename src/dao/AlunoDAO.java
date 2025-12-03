@@ -10,7 +10,6 @@ import java.util.List;
 public class AlunoDAO {
 
     public void inserir(Aluno aluno) throws SQLException {
-        // Insere um novo aluno no banco de dados
         String sql = "INSERT INTO aluno (nome, cpf, rg, endereco_id) VALUES (?, ?, ?, ?)";
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -25,7 +24,6 @@ public class AlunoDAO {
     }
 
     public void atualizar(Aluno aluno) throws SQLException {
-        // Atualiza os dados de um aluno existente
         String sql = "UPDATE aluno SET nome = ?, cpf = ?, rg = ?, endereco_id = ? WHERE id = ?";
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -41,7 +39,6 @@ public class AlunoDAO {
     }
 
     public void deletar(int id) throws SQLException {
-        // Remove um aluno pelo id
         String sql = "DELETE FROM aluno WHERE id = ?";
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -51,7 +48,6 @@ public class AlunoDAO {
     }
 
     public Aluno buscarPorId(int id) throws SQLException {
-        // Busca um aluno pelo id, retornando o endereço completo
         String sql = "SELECT * FROM aluno WHERE id = ?";
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -74,7 +70,6 @@ public class AlunoDAO {
     }
 
     public List<Aluno> buscarTodos() throws SQLException {
-        // Busca todos os alunos, retornando o endereço completo de cada um
         String sql = "SELECT * FROM aluno";
         List<Aluno> alunos = new ArrayList<>();
         dao.EnderecoDAO enderecoDAO = new dao.EnderecoDAO();

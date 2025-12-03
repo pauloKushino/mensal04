@@ -113,20 +113,6 @@ public class CadastroAlunoView extends JFrame {
         buttonPanel.add(btnVoltar);
         add(buttonPanel, BorderLayout.SOUTH);
 
-        btnBuscarCep.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Controller chama ViaCEP para buscar endereço
-            }
-        });
-
-        btnSalvar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Controller valida e salva aluno
-            }
-        });
-
         btnVoltar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

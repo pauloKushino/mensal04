@@ -114,17 +114,14 @@ public class CadastroAlunoController {
         int ini = json.indexOf(busca);
         if (ini < 0) return "";
         
-        // Move para após o campo e o dois-pontos
         ini = json.indexOf(":", ini);
         if (ini < 0) return "";
         ini++;
         
-        // Pula espaços em branco e quebras de linha
         while (ini < json.length() && (json.charAt(ini) == ' ' || json.charAt(ini) == '\n' || json.charAt(ini) == '\r' || json.charAt(ini) == '\t')) {
             ini++;
         }
         
-        // Se encontrou aspas, extrai o valor
         if (ini < json.length() && json.charAt(ini) == '"') {
             ini++;
             int fim = json.indexOf("\"", ini);

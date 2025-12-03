@@ -123,20 +123,6 @@ public class EditarAlunoView extends JFrame {
         buttonPanel.add(btnVoltar);
         add(buttonPanel, BorderLayout.SOUTH);
 
-        btnBuscarCep.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Controller chama ViaCEP
-            }
-        });
-
-        btnSalvar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Controller valida e atualiza aluno
-            }
-        });
-
         btnVoltar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -188,7 +174,21 @@ public class EditarAlunoView extends JFrame {
         return btnVoltar;
     }
 
-    public void preencherRua(String rua) { txtRua.setText(rua); }
-    public void preencherBairro(String bairro) { txtBairro.setText(bairro); }
-    public void preencherCidade(String cidade) { txtCidade.setText(cidade); }
+    public void preencherRua(String rua) { 
+        txtRua.setText(rua);
+        revalidate();
+        repaint();
+    }
+    
+    public void preencherBairro(String bairro) { 
+        txtBairro.setText(bairro);
+        revalidate();
+        repaint();
+    }
+    
+    public void preencherCidade(String cidade) { 
+        txtCidade.setText(cidade);
+        revalidate();
+        repaint();
+    }
 }

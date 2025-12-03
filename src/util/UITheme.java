@@ -65,7 +65,6 @@ public class UITheme {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 if (imagem != null) {
-                    // Desenha a imagem escalada para preencher o painel
                     g.drawImage(imagem, 0, 0, getWidth(), getHeight(), this);
                 }
             }

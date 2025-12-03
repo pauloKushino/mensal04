@@ -8,7 +8,6 @@ public class UsuarioService {
     private UsuarioDAO usuarioDAO = new UsuarioDAO();
 
     public Usuario autenticar(String nome, String senha) throws SQLException {
-        // Pode adicionar hash de senha aqui
         return usuarioDAO.autenticar(nome, senha);
     }
 
