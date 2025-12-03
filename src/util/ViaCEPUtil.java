@@ -10,7 +10,7 @@ public class ViaCEPUtil {
         String url = "https://viacep.com.br/ws/" + cep + "/json/";
         HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
         con.setRequestMethod("GET");
-        con.setConnectTimeout(5000); // 5 segundos de timeout
+        con.setConnectTimeout(5000);
         con.setReadTimeout(5000);
         con.setRequestProperty("User-Agent", "Mozilla/5.0");
         

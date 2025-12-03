@@ -8,7 +8,7 @@ import util.UITheme;
 import controller.*;
 
 public class MainMenuView extends JFrame {
-    private JButton btnCadastrar, btnEditar, btnRemover, btnListar, btnBuscarCep, btnSair;
+    private JButton btnCadastrar, btnEditar, btnRemover, btnListar, btnSair;
 
     public MainMenuView() {
         setTitle("Sistema de Alunos - Menu Principal");
@@ -21,7 +21,6 @@ public class MainMenuView extends JFrame {
     }
 
     private void initComponents() {
-        // Navbar com os botões
         JPanel navbar = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
         navbar.setBackground(UITheme.PRIMARY_COLOR);
         navbar.setPreferredSize(new Dimension(1280, 60));
@@ -53,11 +52,6 @@ public class MainMenuView extends JFrame {
         btnListar.setPreferredSize(new Dimension(120, 40));
         navbar.add(btnListar);
 
-        btnBuscarCep = new JButton("CEP");
-        UITheme.styleButton(btnBuscarCep);
-        btnBuscarCep.setPreferredSize(new Dimension(120, 40));
-        navbar.add(btnBuscarCep);
-
         navbar.add(Box.createHorizontalGlue());
 
         btnSair = new JButton("Sair");
@@ -67,9 +61,7 @@ public class MainMenuView extends JFrame {
 
         add(navbar, BorderLayout.NORTH);
 
-        // Painel central vazio para futuro conteúdo
-        JPanel centerPanel = new JPanel();
-        centerPanel.setBackground(new Color(245, 245, 245));
+        JPanel centerPanel = UITheme.criarPainelComFundo("src/resources/mensal04.jpg", 1280, 660);
         add(centerPanel, BorderLayout.CENTER);
 
         btnCadastrar.addActionListener(new ActionListener() {
@@ -108,14 +100,6 @@ public class MainMenuView extends JFrame {
             }
         });
 
-        btnBuscarCep.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                BuscarCEPView view = new BuscarCEPView();
-                new BuscarCEPController(view);
-                view.setVisible(true);
-            }
-        });
 
         btnSair.addActionListener(new ActionListener() {
             @Override

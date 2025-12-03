@@ -62,7 +62,12 @@ public class CadastroAlunoController {
             String bairro = extrairCampo(json, "bairro");
             String cidade = extrairCampo(json, "localidade");
 
+            System.out.println("[CadastroAlunoController] Rua extraída: '" + rua + "'");
+            System.out.println("[CadastroAlunoController] Bairro extraído: '" + bairro + "'");
+            System.out.println("[CadastroAlunoController] Cidade extraída: '" + cidade + "'");
+
             view.preencherEndereco(rua, bairro, cidade);
+            System.out.println("[CadastroAlunoController] Campos preenchidos na view!");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(view, "Erro ao buscar CEP: " + ex.getMessage());
         }
@@ -105,12 +110,28 @@ public class CadastroAlunoController {
     }
 
     private String extrairCampo(String json, String campo) {
-        String busca = "\"" + campo + "\":\"";
+        String busca = "\"" + campo + "\"";
         int ini = json.indexOf(busca);
         if (ini < 0) return "";
-        ini += busca.length();
-        int fim = json.indexOf("\"", ini);
-        if (fim < 0) return "";
-        return json.substring(ini, fim);
+        
+        // Move para após o campo e o dois-pontos
+        ini = json.indexOf(":", ini);
+        if (ini < 0) return "";
+        ini++;
+        
+        // Pula espaços em branco e quebras de linha
+        while (ini < json.length() && (json.charAt(ini) == ' ' || json.charAt(ini) == '\n' || json.charAt(ini) == '\r' || json.charAt(ini) == '\t')) {
+            ini++;
+        }
+        
+        // Se encontrou aspas, extrai o valor
+        if (ini < json.length() && json.charAt(ini) == '"') {
+            ini++;
+            int fim = json.indexOf("\"", ini);
+            if (fim < 0) return "";
+            return json.substring(ini, fim);
+        }
+        
+        return "";
     }
 }

@@ -157,6 +157,8 @@ public class CadastroAlunoView extends JFrame {
         txtRua.setText(rua);
         txtBairro.setText(bairro);
         txtCidade.setText(cidade);
+        revalidate();
+        repaint();
     }
 
     public JButton getBtnBuscarCep() {

@@ -2,28 +2,57 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "Compilar Java para bin",
+			"label": "Compilar Java",
 			"type": "shell",
-			"command": "javac",
+			"command": "powershell",
 			"args": [
-				"-d",
-				"bin",
-				"src\\**\\*.java"
+				"-Command",
+				"$files = Get-ChildItem -Path src -Recurse -Filter *.java | ForEach-Object { '\"' + $_.FullName + '\"' } | Join-String -Separator ' '; javac -d bin -cp 'src;lib/*' $($files -split ' ')"
+			],
+			"isBackground": false,
+			"problemMatcher": [
+				"$javac"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"presentation": {
+				"reveal": "always",
+				"panel": "shared"
+			}
+		},
+		{
+			"label": "Executar Aplicação",
+			"type": "shell",
+			"command": "java",
+			"args": [
+				"-cp",
+				"bin;lib/*",
+				"Main"
+			],
+			"dependsOn": "Compilar Java",
+			"isBackground": false,
+			"problemMatcher": [],
+			"presentation": {
+				"reveal": "always",
+				"panel": "shared"
+			}
+		},
+		{
+			"label": "Limpar .class fora do bin",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-Command",
+				"Get-ChildItem -Path . -Recurse -Filter '*.class' | Where-Object { $_.FullName -notmatch 'bin' } | Remove-Item -Force"
 			],
 			"isBackground": false,
 			"problemMatcher": [],
-			"group": "build"
-		},
-		{
-			"label": "Compilar Java para bin",
-			"type": "shell",
-			"command": "powershell",
-				"args": [
-					"$files = Get-ChildItem -Path src -Recurse -Filter *.java | ForEach-Object { $_.FullName }; javac -d bin $files"
-				],
-			"isBackground": false,
-			"problemMatcher": [],
-			"group": "build"
+			"presentation": {
+				"reveal": "always",
+				"panel": "shared"
+			}
 		}
 	]
 }

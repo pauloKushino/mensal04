@@ -1,7 +1,6 @@
 package controller;
 
 import view.LoginView;
-import view.MainMenuView;
 import service.UsuarioService;
 import model.Usuario;
 
